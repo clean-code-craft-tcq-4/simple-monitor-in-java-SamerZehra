@@ -1,23 +1,21 @@
 package vitals;
 
-public class Main {
-    static boolean batteryIsOk(float temperature, float soc, float chargeRate) {
-        if(temperature < 0 || temperature > 45) {
-            System.out.println("Temperature is out of range!");
-            return false;
-        } else if(soc < 20 || soc > 80) {
-            System.out.println("State of Charge is out of range!");
-            return false;
-        } else if(chargeRate > 0.8) {
-            System.out.println("Charge Rate is out of range!");
-            return false;
-        }
-        return true;
-    }
+import java.util.logging.Logger;
 
-    public static void main(String[] args) {
-        assert(batteryIsOk(25, 70, 0.7f) == true);
-        assert(batteryIsOk(50, 85, 0.0f) == false);
-        System.out.println("Some more tests needed");
-    }
+import vitals.utils.LanguageReader;
+
+public class Main {
+
+	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
+	public static void main(String[] args) {
+		LanguageReader.getUserInput();
+		assert (BatteryChecker.batteryIsOk(25, 70, 0.7f) == true);
+		assert (BatteryChecker.batteryIsOk(50, 85, 0.0f) == false);
+		assert (BatteryChecker.batteryIsOk(2.25f, 24, 0.7f) == true);
+		assert (BatteryChecker.batteryIsOk(43, 24, 0.76f) == true);
+		System.out.println(BatteryChecker.batteryIsOk(43, 24, 0.76f) == true);
+		LOGGER.info("All tests done !");
+	}
+
 }
